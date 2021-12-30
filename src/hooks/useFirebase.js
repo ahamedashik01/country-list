@@ -8,7 +8,6 @@ const useFirebase = () => {
     const [user, setUser] = useState({});
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(true);
-
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
 
@@ -50,9 +49,6 @@ const useFirebase = () => {
             .then(() => { })
             .finally(() => setIsLoading(false));
     }
-
-
-
 
     return {
         user,

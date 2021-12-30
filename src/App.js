@@ -4,12 +4,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import NotFound from './pages/NotFound/NotFound';
 import LogIn from './pages/LogIn/LogIn';
-import Register from './pages/Register/Register';
 import AddCountry from './pages/AddCountry/AddCountry';
 import Manage from './pages/Manage/Manage';
 import AuthProvider from './context/AuthProvider';
 import PrivateRoute from './PrivateRoute/PrivateRoute';
-
 
 
 function App() {
@@ -32,9 +30,6 @@ function App() {
             </PrivateRoute>
             <Route path="/login">
               <LogIn></LogIn>
-            </Route>
-            <Route path="/register">
-              <Register></Register>
             </Route>
             <Route path="*">
               <NotFound></NotFound>

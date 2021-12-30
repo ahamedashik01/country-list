@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useForm } from 'react-hook-form';
 import { Container, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -16,7 +14,7 @@ const Manage = () => {
             });
     }, []);
 
-
+    // update the status 
     const handleUpdate = id => {
         const url = `https://infinite-peak-02310.herokuapp.com/countries/${id}`;
         fetch(url)
@@ -41,6 +39,7 @@ const Manage = () => {
             });
     }
 
+    // delete action 
     const handleDelete = id => {
         const procced = window.confirm('Are you sure, you want to delete?');
         if (procced) {
@@ -61,52 +60,54 @@ const Manage = () => {
 
     return (
         <div>
-            <Container>
-                <div className='w-50 mx-auto text-start'>
-                    <Link to="/home">
-                        <button className='mt-5 btn btn-primary'>Back</button>
-                    </Link>
-                    <h1>Manage country</h1>
-                </div>
-            </Container>
-            <Container>
-                <div className='w-50 mx-auto'>
-                    <Table striped bordered hover size='sm'>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>status</th>
-                                <th colSpan={2}>action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                countries.map(country => <tr
-                                    key={country._id}
-                                >
-                                    <td>
-                                        {country.country_name}
-                                    </td>
-                                    <td>
-                                        {country.status}
-                                    </td>
-                                    <td>
-                                        <button onClick={() => handleUpdate(country._id)} className="btn btn-success">
-                                            Approve
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button onClick={() => handleDelete(country._id)} className="btn btn-danger">
-                                            Delete
-                                        </button>
-                                    </td>
+            <div className='w-75 mx-auto border border-1 mt-5' >
+                <Container>
+                    <div className='w-50 mx-auto text-start'>
+                        <Link to="/home">
+                            <button className='my-4 btn btn-primary'><i className="me-2 fas fa-chevron-left"></i>Back</button>
+                        </Link>
+                        <h1 className='py-3'>Manage country</h1>
+                    </div>
+                </Container>
+                <Container>
+                    <div className='w-50 mx-auto'>
+                        <Table className='mb-5' striped bordered hover size='sm'>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>status</th>
+                                    <th colSpan={2}>action</th>
                                 </tr>
-                                )
-                            }
-                        </tbody>
-                    </Table>
-                </div>
-            </Container>
+                            </thead>
+                            <tbody>
+                                {
+                                    countries.map(country => <tr
+                                        key={country._id}
+                                    >
+                                        <td>
+                                            {country.country_name}
+                                        </td>
+                                        <td>
+                                            {country.status}
+                                        </td>
+                                        <td>
+                                            <button onClick={() => handleUpdate(country._id)} className="btn btn-success">
+                                                Approve
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button onClick={() => handleDelete(country._id)} className="btn btn-danger">
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    )
+                                }
+                            </tbody>
+                        </Table>
+                    </div>
+                </Container>
+            </div>
         </div>
     );
 };

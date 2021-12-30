@@ -25,8 +25,8 @@ const Home = () => {
     return (
         <Container>
             <div>
-                <div className='mt-5'>
-                    <div className='w-50 mx-auto'>
+                <div className='mt-5 border border-1'>
+                    <div className='w-50 p-5 mx-auto'>
                         <div>
                             <Row>
                                 <Col xs={12} md={6}>

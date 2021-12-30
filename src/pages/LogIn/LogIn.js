@@ -24,12 +24,13 @@ const LogIn = () => {
             })
             .finally(() => setIsLoading(false));
     }
+
     return (
         <>
             <div className='mt-5 w-50 mx-auto p-5 border border-1'>
                 <div className='text-start'>
                     <Link to="/home">
-                        <button className='mt-1 btn btn-primary'>Back</button>
+                        <button className='mt-1 btn btn-primary'><i className="me-2 fas fa-chevron-left"></i>Back</button>
                     </Link>
                 </div>
                 <h2 className='mt-5'>Login</h2>
