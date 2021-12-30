@@ -3,30 +3,33 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { Container, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 const AddCountry = () => {
     const [countries, setCountries] = useState([]);
+    const { user } = useAuth();
 
     useEffect(() => {
-        fetch('https://protected-caverns-47687.herokuapp.com/countries')
+        fetch('https://infinite-peak-02310.herokuapp.com/countries')
             .then(res => res.json())
             .then(data => {
-                const filterData = data.filter(d => d.status === 'Approved');
-                setCountries(filterData);
+                const UserFilterData = data.filter(d => d.email === user.email);
+                setCountries(UserFilterData);
             });
-    }, [countries])
+    }, [])
 
     // form 
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = data => {
-        data.status = 'Approved';
-        console.log(data)
-        // setCountry(data)
-        axios.post('https://protected-caverns-47687.herokuapp.com/countries', data)
+        data.status = 'Under Review';
+        data.displayName = user.displayName;
+        data.email = user.email;
+        axios.post('https://infinite-peak-02310.herokuapp.com/countries', data)
             .then(res => {
                 if (res.data.insertedId) {
                     alert("sussesfully done");
                     reset();
+                    window.location.reload()
                 }
             })
     }
@@ -49,6 +52,12 @@ const AddCountry = () => {
                 <Container>
                     <div className='w-50 mx-auto'>
                         <Table striped bordered hover size='sm'>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>status</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 {
                                     countries.map(country => <tr

@@ -6,33 +6,16 @@ initializeAuthentication();
 
 const useFirebase = () => {
     const [user, setUser] = useState({});
-    const [email, setEmail] = useState('');
-    const [name, setName] = useState('')
-    const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(true);
-    const [admin, setAdmin] = useState(false);
 
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
 
-    const reload = () => {
-        window.location.reload();
-    }
-    // const url = `https://glacial-sands-61817.herokuapp.com/users/${user.email}`;
-
-    // useEffect(() => {
-    //     fetch(url)
-    //         .then(res => res.json())
-    //         .then(data => setAdmin(data.admin))
-    // }, [user.email])
-
-
-
     const saveUser = (email, displayName) => {
         const user = { email, displayName };
-        fetch('https://glacial-sands-61817.herokuapp.com/users', {
-            method: "POST",
+        fetch('https://infinite-peak-02310.herokuapp.com/users', {
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
@@ -44,9 +27,7 @@ const useFirebase = () => {
 
 
     const signInUsingGoogle = () => {
-
         return signInWithPopup(auth, googleProvider)
-
     }
 
     // observe user state change
@@ -75,7 +56,6 @@ const useFirebase = () => {
 
     return {
         user,
-        admin,
         isLoading,
         error,
         saveUser,

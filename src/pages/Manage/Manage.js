@@ -6,14 +6,58 @@ import { Link } from 'react-router-dom';
 
 const Manage = () => {
     const [countries, setCountries] = useState([]);
+    const [country, setCountry] = useState({});
 
     useEffect(() => {
-        fetch('https://protected-caverns-47687.herokuapp.com/countries')
+        fetch('https://infinite-peak-02310.herokuapp.com/countries')
             .then(res => res.json())
             .then(data => {
                 setCountries(data);
             });
-    }, [countries])
+    }, []);
+
+
+    const handleUpdate = id => {
+        const url = `https://infinite-peak-02310.herokuapp.com/countries/${id}`;
+        fetch(url)
+            .then(res => res.json())
+            .then(data => setCountry(data));
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(country)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount === 1) {
+                    alert('Approved successfully');
+                    window.location.reload();
+                }
+                if (data.modifiedCount === 0) {
+                    alert('Already Approved');
+                }
+            });
+    }
+
+    const handleDelete = id => {
+        const procced = window.confirm('Are you sure, you want to delete?');
+        if (procced) {
+            const url = `https://infinite-peak-02310.herokuapp.com/countries/${id}`;
+            fetch(url, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.deletedCount) {
+                        alert('Entry Deleted')
+                        window.location.reload();
+                    }
+                });
+        }
+    }
 
     return (
         <div>
@@ -47,16 +91,17 @@ const Manage = () => {
                                         {country.status}
                                     </td>
                                     <td>
-                                        <button className="btn btn-success">
+                                        <button onClick={() => handleUpdate(country._id)} className="btn btn-success">
                                             Approve
                                         </button>
                                     </td>
                                     <td>
-                                        <button className="btn btn-danger">
+                                        <button onClick={() => handleDelete(country._id)} className="btn btn-danger">
                                             Delete
                                         </button>
                                     </td>
-                                </tr>)
+                                </tr>
+                                )
                             }
                         </tbody>
                     </Table>

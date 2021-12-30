@@ -8,6 +8,7 @@ import Register from './pages/Register/Register';
 import AddCountry from './pages/AddCountry/AddCountry';
 import Manage from './pages/Manage/Manage';
 import AuthProvider from './context/AuthProvider';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 
 
@@ -23,12 +24,12 @@ function App() {
             <Route path="/home">
               <Home></Home>
             </Route>
-            <Route path="/add-country">
+            <PrivateRoute path="/add-country">
               <AddCountry></AddCountry>
-            </Route>
-            <Route path="/Manage">
+            </PrivateRoute>
+            <PrivateRoute path="/Manage">
               <Manage></Manage>
-            </Route>
+            </PrivateRoute>
             <Route path="/login">
               <LogIn></LogIn>
             </Route>
